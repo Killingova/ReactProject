@@ -1,0 +1,39 @@
+// Importiert React, um die JSX-Syntax und React-Funktionen zu nutzen
+import React from 'react';
+
+// Definiert eine Button-Komponente, die als Default-Export dieses Moduls verfügbar ist.
+// Dies ermöglicht es anderen Dateien, diese Komponente zu importieren und zu verwenden.
+export default function Button({ children, className, mode = 'filled', Icon, ...props }) {
+  // Startet mit einer Basis-CSS-Klasse für alle Buttons
+  let cssClasses = `button ${mode}-button`;
+
+  // Wenn ein Icon-Prop gegeben ist, füge die 'icon-button' Klasse hinzu,
+  // um spezielle Stile für Buttons mit Icons zu ermöglichen
+  if (Icon) {
+    cssClasses += ' icon-button';
+  }
+
+  // Wenn eine zusätzliche className übergeben wird, füge diese zur Liste der CSS-Klassen hinzu.
+  // Dies ermöglicht es dem Nutzer, benutzerdefinierte Stile hinzuzufügen.
+  if (className) {
+    cssClasses += ` ${className}`;
+  }
+
+  // Rendert ein <button>-Element mit den zusammengefügten CSS-Klassen und
+  // verteilt alle zusätzlichen Props auf dieses Element.
+  // Dies beinhaltet HTML-Standard-Attribute wie 'type', 'onClick', etc.
+  return (
+    <button className={cssClasses} {...props}>
+      {/* Wenn ein Icon-Prop vorhanden ist, wird dieses innerhalb eines <span> Tags mit einer speziellen Klasse gerendert.
+          Dies ermöglicht es, das Icon visuell innerhalb des Buttons zu positionieren und zu stylen. */}
+      {Icon && (
+        <span className="button-icon">
+          <Icon />
+        </span>
+      )}
+      {/* Rendert die Kinder (Inhalt) des Buttons, die zwischen den öffnenden und schließenden Tags des Button-Elements angegeben werden.
+          Diese Kinder könnten Text, weitere Icons oder andere React-Komponenten sein. */}
+      <span>{children}</span>
+    </button>
+  );
+}
